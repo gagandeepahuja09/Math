@@ -1,24 +1,28 @@
-#define ll long long int
 #define MOD 1000003
+#define ll long long int
 
-int fact(int n) {
-    return (n <= 1) ? 1 : n * fact(n - 1);
+ll findSmallerInRight(string s, int l, int h) {
+    int cntRight = 0;
+    for(int i = l + 1; i <= h; i++) {
+        if(s[i] < s[l])
+            cntRight++;
+    }
+    return cntRight;
 }
 
 int Solution::findRank(string A) {
-    vector<int> cnt(256, 0);
-    for(int i = 0; i < A.size(); i++)
-        cnt[A[i]]++;
-    for(int i = 1; i < 256; i++)
-        cnt[i] += cnt[i - 1];
-    int l = A.size();
-    int mul = fact(l);   
-    ll rank = 1;
-    for(int i = 0; i < l; i++) {
-        mul /= (l - i);
-        rank = (rank % MOD + (cnt[A[i] - 1] % MOD * mul % MOD) % MOD) % MOD;
-        for(int k = A[i]; k < 256; k++)
-            cnt[k]--;
+    ll n = A.size();
+    int fact[n + 1];
+    fact[0] = 1;
+    for(int i = 1; i <= n; i++) {
+        fact[i]  = ((fact[i - 1]) * (i) )%MOD;
     }
-    return (int)rank % MOD;
+    ll rank = 0;
+    for(int i = 0; i < A.size(); i++) {
+        ll mul = fact[n - i - 1];
+        ll cntRight = findSmallerInRight(A, i, n - 1);
+        rank = (rank % MOD + (cntRight % MOD * mul % MOD) % MOD) % MOD;
+    }
+    return (int)(rank + 1);
 }
+
