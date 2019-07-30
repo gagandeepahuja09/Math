@@ -1,15 +1,17 @@
 #define MOD 1000000007
 
 int Solution::hammingDistance(const vector<int> &A) {
-    int ans = 0;
-    for(int i = 0; i < 32; i++) {
-        int cnt = 0;
-        for(int j = 0; j < A.size(); j++) {
-            if(A[j] & (1 << i))
-                cnt++;
+    long ret = 0;
+    for(int j = 0; j < 32; j++) {
+        long c0 = 0, c1 = 0;
+        for(int i = 0; i < A.size(); i++) {
+            if((A[i] & (1 << j)) == 0)
+                c0++;
+            else
+                c1++;
         }
-        ans =  (ans % MOD + (2 * cnt % MOD * (A.size() % MOD - cnt % MOD) % MOD) % MOD);
+        ret = (ret % MOD + (2 * c0 % MOD * c1 % MOD) % MOD) % MOD;
     }
-    return ans;
+    return (int)(ret % MOD);
 }
 
