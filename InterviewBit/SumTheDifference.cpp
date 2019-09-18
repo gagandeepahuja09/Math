@@ -8,14 +8,13 @@ Then add up all the differences to get the number.*/
 #define MOD 1000000007
 
 int Solution::solve(vector<int> &A) {
-    ll mn = 0, mx = 0;
+    int mn = 0, mx = 0, n = A.size();
     sort(A.begin(), A.end());
-    for(int i = 0; i < A.size(); i++) {
-        mn = (2 % MOD * mn % MOD) + A[i] % MOD;
-        mx = (2 % MOD * mx % MOD) + A[A.size() - i - 1] % MOD;
-        mn %= MOD;
-        mx %= MOD;
+    for(int i = 0; i < n; i++) {
+        mn = ((2 * mn % MOD) % MOD + A[i] % MOD) % MOD;
+        mx = ((2 * mx % MOD) % MOD + A[n - 1 - i] % MOD) % MOD;
     }
-    return int((mx % MOD - mn % MOD) % MOD);
+    int ans = ((mx % MOD - mn % MOD + MOD) % MOD);
+    return ans;
 }
 

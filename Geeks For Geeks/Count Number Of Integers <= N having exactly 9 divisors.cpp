@@ -23,8 +23,8 @@ int main() {
 		}
 		
 		for(int i = 2; i <= limit; i++) {
-			int p = sq[i];
-			int q = sq[i / p];
+			int p = sp[i];
+			int q = sp[i / p];
 			if(p * q == i && q != 1 && p != q) {
 				ret++;
 			}
