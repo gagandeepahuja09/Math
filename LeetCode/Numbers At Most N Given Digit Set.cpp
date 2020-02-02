@@ -1,24 +1,24 @@
 class Solution {
 public:
-    int atMostNGivenDigitSet(vector<string>& D, int n) {
-        string ns = to_string(n);
-        int dsize = D.size();
-        int ret = 0;
+    int atMostNGivenDigitSet(vector<string>& D, int N) {
+        string ns = to_string(N);
+        int ans = 0;
         for(int i = 1; i < ns.size(); i++) {
-            ret += pow(dsize, i);
+            ans += pow(D.size(), i);
         }
         for(int i = 0; i < ns.size(); i++) {
             bool hasSameNum = false;
             for(string s : D) {
                 if(s[0] < ns[i]) {
-                    ret += pow(dsize, (int)ns.size() - 1 - i);
+                    ans += pow(D.size(), ns.size() - i - 1);
                 }
-                if(s[0] == ns[i])
+                else if(s[0] == ns[i]) {
                     hasSameNum = true;
+                }
             }
             if(!hasSameNum)
-                return ret;
+                return ans;
         }
-        return ret + 1;
+        return ans + 1;
     }
 };
