@@ -1,9 +1,14 @@
 void Solution::arrange(vector<int> &A) {
-for(int i = 0; i < A.size(); i++) {
-    A[i] += ((A[A[i]] % A.size()) * A.size()); 
+    int n = A.size(); 
+    for(int i = 0; i < n; i++) {
+        A[i] *= n;
+    }
+    for(int i = 0; i < n; i++) {
+        int curr = A[i] / n;
+        int replace = A[curr] / n;
+        A[i] += replace;
+    }
+    for(int i = 0; i < n; i++) {
+        A[i] %= n;
+    }
 }
-for(int i = 0; i < A.size(); i++)
-    A[i] /= A.size();
-}
-
-
