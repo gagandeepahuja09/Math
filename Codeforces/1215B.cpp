@@ -1,21 +1,28 @@
-    #include<bits/stdc++.h>
-    using namespace std;
-    #define dbg(var) cout<<#var<<"="<<var<<"\n"
-    #define ll long long 
-    #define nl cout<<"\n"
-     
-    int32_t main()
-    {
-        ios_base::sync_with_stdio(false);cin.tie(nullptr);
-        ll n;cin>>n;
-        ll pos=1,cur=1;
-        for(ll i=0,x;i<n;i++){
-        	cin>>x;
-        	cur*=(x>0?1:-1);
-        	if(cur>0)pos++;
-     
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define int long long int
+#define vi vector<int>
+#define vvi vector<vi>
+#define pb push_back
+
+int const MOD = 1e9 + 7, N = 1e6 + 1;
+
+signed main() {
+    int n;
+    cin >> n;
+    vi a(n);
+    int cnt = 0, ans = 0, total = n * (n + 1) / 2;
+    vi c(2);
+    c[0] = 1, c[1] = 0; 
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+        if(a[i] < 0) {
+            cnt = (cnt + 1) % 2;
         }
-        ll neg=n+1-pos;ll b=(pos*(pos-1))/2+(neg*(neg-1))/2;
-        cout<<(n*(n+1))/2-b<<" "<<b;
-       		
+        c[cnt]++;
+        // cout << cnt << " " << c[1 - cnt] << endl;
+        ans += (c[1 - cnt]);
     }
+    cout << ans << " " << total - ans << endl;
+}
