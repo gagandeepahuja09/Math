@@ -9,18 +9,21 @@ using namespace std;
 int const MOD = 1e9 + 7, N = 1e6 + 1;
 
 signed main() {
-    string s;
-    cin >> s;
-    int total = 0;
-    for(int i = 1; i < s.size(); i++) {
-        if(s[i] == 'v' && s[i - 1] == 'v') total++;
+    int n, m;
+    cin >> n >> m;
+    map<string, int> mp;
+    vector<string> vs(n);
+    for(int i = 0; i < n; i++) {
+        cin >> vs[i];
     }
-    int cnt = 0, ans = 0;
-    for(int i = 1; i < s.size(); i++) {
-        if(s[i] == 'v' && s[i - 1] == 'v') cnt++;
-        if(s[i] == 'o') {
-            ans += (cnt * (total - cnt));
+    int ans = 1;
+    for(int j = 0; j < m; j++) {
+        map<char, int> mp;
+        for(int i = 0; i < n; i++) {
+            mp[vs[i][j]]++;
         }
+        ans *= mp.size();
+        ans %= MOD;
     }
     cout << ans << endl;
 }
